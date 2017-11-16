@@ -56,6 +56,10 @@ var pubFunc = {
     if (!b_pass) {
       return null;
     }
+
+    if (registerParams.password != registerParams.rePassword) {
+      alert('两次输入的密码不一致请重新输入');
+    }
   },
 
   /**

@@ -34,7 +34,7 @@ module.exports = {
     /* config */
     configModule: path.resolve(dirVars.configDir, 'common.config'),
 
-    /*登录页面相关逻辑*/
+    /* 登录页面相关逻辑 */
     login_loginCommon: path.resolve(dirVars.userJsDir, 'walogin/loginCommon'),
   },
 

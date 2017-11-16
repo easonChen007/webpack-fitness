@@ -13,7 +13,7 @@ moduleExports.libsDir = path.resolve(moduleExports.publicDir, './libs');  // 与
 moduleExports.configDir = path.resolve(moduleExports.publicDir, './config'); // 存放各种配置文件
 moduleExports.componentsDir = path.resolve(moduleExports.publicDir, './components'); // 存放组件，可以是纯HTML，也可以包含js/css/image等，看自己需要
 moduleExports.layoutDir = path.resolve(moduleExports.publicDir, './layout'); // 存放UI布局，组织各个组件拼起来，因应需要可以有不同的布局套路
-moduleExports.userJsDir = path.resolve(moduleExports.publicDir, './userjs'); //自定义脚本库 
+moduleExports.userJsDir = path.resolve(moduleExports.publicDir, './userjs'); // 自定义脚本库
 
 // 生成文件目录
 moduleExports.buildDir = path.resolve(moduleExports.staticRootDir, './build'); // 存放编译后生成的所有代码、资源（图片、字体等，虽然只是简单的从源目录迁移过来）
