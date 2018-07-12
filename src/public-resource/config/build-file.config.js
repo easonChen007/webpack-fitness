@@ -1,4 +1,5 @@
 require('!!file-loader?name=index.html!../../index.html');
+
 module.exports = {
   js: {
     html5shiv: require('!!file-loader?name=static/js/[name].[ext]!../../../vendor/ie-fix/html5shiv.min.js'),

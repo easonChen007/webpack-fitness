@@ -1,4 +1,5 @@
 const buildFileConfig = require('configDir/build-file.config');
+
 const moduleExports = {
   DIRS: {
     BUILD_FILE: buildFileConfig,

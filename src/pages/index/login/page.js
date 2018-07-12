@@ -1,6 +1,8 @@
 require('lessDir/base.less');
 require('./page.less');
 var loginCommon = require('login_loginCommon');
+require('bootstrapNotify/bootstrap-notify.min');
+require('jqueryMd5');
 
 window.switchToPage = (page) => {
   switch (page) {

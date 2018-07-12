@@ -1,3 +1,6 @@
+var basicFn = require('basicFn').BasicFunc;
+var Constant = require('basicFn').Constant;
+
 /**
  * [loginWin自定义脚本 description]
  * @type {Object}
@@ -47,7 +50,7 @@ var pubFunc = {
     $.each(registerParams, function(key, value) {
       if (!value) {
         b_pass = false;
-        alert('请填写' + that.formInpTip(key));
+        basicFn.buildNotify(that.formInpTip(key), 'warning');
         return false;
       }
       b_pass = true;
@@ -57,11 +60,18 @@ var pubFunc = {
       return null;
     }
 
-    if (registerParams.password != registerParams.rePassword) {
-      alert('两次输入的密码不一致请重新输入');
-    }
-  },
+    if (registerParams.password !== registerParams.rePassword) {
+      basicFn.buildNotify('两次输入密码不一致', 'danger');
+    };
 
+    registerParams.password = $.md5(registerParams.password);
+    registerParams.rePassword = registerParams.password;
+
+    that.saveData(registerParams);
+
+    // basicFn.buildNotify('成功', 'success');
+    // alert(JSON.stringify(registerParams));aa
+  },
   /**
    * @return {[type]}
    */
@@ -69,20 +79,56 @@ var pubFunc = {
     var tipStr = '无';
     switch (key) {
       case 'userName':
-        tipStr = '账户(手机号)';
+        tipStr = '请填写账户(手机号)';
         break;
       case 'nickName':
-        tipStr = '昵称';
+        tipStr = '请填写昵称';
         break;
       case 'email':
-        tipStr = '邮箱地址';
+        tipStr = '请填写邮箱地址';
         break;
       case 'password':
-        tipStr = '密码';
+        tipStr = '请填写密码';
+        break;
+      case 'rePassword':
+        tipStr = '请再次输入密码';
         break;
       default:
     }
     return tipStr;
+  },
+
+  /**
+   * [saveData 提交保存]
+   * @return {[type]} [description]
+   */
+  saveData: function(v_params) {
+    var url = Constant.MobileRegister;
+    url += '?type=loginBusiness&act=NewCreateUser';
+
+    // 与Action的交互
+    jQuery.ajax({
+      type: 'POST',
+      url: url,
+      contentType: 'application/json;charset=utf-8',
+      dataType: 'json',
+      data: JSON.stringify(v_params).replace(/'/g, '‘'),
+      async: false,
+      success: function(json) {
+        if (json) {
+          debugger;
+          var jsonObject = json;
+          if (jsonObject.wrongResult != null) {
+
+          } else {
+
+          }
+        }
+      },
+      complete: function() {},
+    });
+
+    return null;
   },
 
   /**

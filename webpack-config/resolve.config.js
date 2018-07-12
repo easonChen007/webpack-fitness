@@ -11,6 +11,8 @@ module.exports = {
     /* vendor */
     /* bootstrap 相关 */
     metisMenu: path.resolve(dirVars.vendorDir, 'metisMenu/'),
+    bootstrapNotify: path.resolve(dirVars.vendorDir, 'bootstrap-notify-3.1.3/'),
+    jqueryMd5: path.resolve(dirVars.vendorDir, 'jquery.md5'),
 
     /* libs */
     withoutJqueryModule: path.resolve(dirVars.libsDir, 'without-jquery.module'),
@@ -30,6 +32,7 @@ module.exports = {
     /* logic */
     cm: path.resolve(dirVars.logicDir, 'common.module'),
     cp: path.resolve(dirVars.logicDir, 'common.page'),
+    basicFn: path.resolve(dirVars.logicDir, 'basic.page'),
 
     /* config */
     configModule: path.resolve(dirVars.configDir, 'common.config'),
