@@ -1,4 +1,4 @@
-# test webpack-fitness
+# test2 webpack-fitness
 
 ## 项目介绍
 基于这个框架撸一个健身约课用
