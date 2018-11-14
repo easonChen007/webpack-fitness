@@ -62,6 +62,10 @@ module.exports = {
         name: 'static/fonts/[name].[hash].[ext]',
       },
     },
+    {
+      test: require.resolve(dirVars.vendorDir + '/snap.svg.js'),
+      use: 'imports-loader?this=>window,fix=>module.exports=0',
+    },
 
   ],
 };

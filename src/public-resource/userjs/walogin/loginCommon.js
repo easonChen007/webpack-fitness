@@ -106,27 +106,25 @@ var pubFunc = {
     var url = Constant.MobileRegister;
     url += '?type=loginBusiness&act=NewCreateUser';
 
-    // 与Action的交互
-    jQuery.ajax({
-      type: 'POST',
-      url: url,
-      contentType: 'application/json;charset=utf-8',
-      dataType: 'json',
-      data: JSON.stringify(v_params).replace(/'/g, '‘'),
-      async: false,
-      success: function(json) {
-        if (json) {
-          debugger;
-          var jsonObject = json;
-          if (jsonObject.wrongResult != null) {
+    var other = {};
+    other.contentType = 'application/json;charset=utf-8';
 
-          } else {
-
-          }
+    var callback = function(result) {
+      if (result) {
+        var jsonObject = result;
+        if (jsonObject.wrongResult != null) {
+          basicFn.buildNotify('注册异常', 'danger');
+        } else {
+          basicFn.buildNotify('注册成功', 'success');
         }
-      },
-      complete: function() {},
-    });
+      }
+    };
+
+    // 与Action的交互
+    basicFn.ajaxFromServer(url,
+      JSON.stringify(v_params).replace(/'/g, '‘'),
+      callback, other
+    );
 
     return null;
   },

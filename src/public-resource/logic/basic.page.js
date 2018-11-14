@@ -44,13 +44,167 @@ var BasicFunc = {
 
     });
   },
+
+  ajaxFromServer: function(url, data, success, other) {
+    other = other || {};
+
+    /* //////////
+    // TODO 暂时放这里
+    // var jsessionid = wellApp.session.getSession().id || ""; */
+    var jsessionid = '';
+    // 进行url转换，以保证进行native端的ajax调用
+    var urlTrans = function(urlStr) {
+      var resultUrl;
+
+      var jsessionPrefix = '';
+      if (jsessionid) {
+        jsessionPrefix = ';jsessionid=';
+      }
+      if (urlStr.indexOf('?') !== -1) {
+        var arr = urlStr.split('?');
+        resultUrl = arr[0] + jsessionPrefix + jsessionid + '?' + arr[1];
+      } else {
+        resultUrl = urlStr + jsessionPrefix + jsessionid;
+      }
+      return resultUrl;
+    };
+
+    if (url.indexOf('.html') === -1 && url.indexOf('.json') === -1) {
+      url = urlTrans(url);
+    }
+
+    if (undefined === other.async) {
+      other.async = true;
+    }
+
+    if (undefined === other.timeout) {
+      other.timeout = 120000;
+    }
+
+    if (undefined === other.dataType) {
+      other.dataType = 'json';
+    }
+
+    if (undefined === other.type) {
+      other.type = 'post';
+    }
+
+    if (undefined === other.contentType) { // 传递json数据到后台需要设置数据格式
+      other.contentType = 'application/x-www-form-urlencoded';
+    }
+
+    var ajaxOpt = {
+      url: url,
+      async: other.async,
+      timeout: other.timeout,
+      data: data,
+      dataType: other.dataType,
+      type: other.type,
+      processData: other.processData,
+      contentType: other.contentType,
+      complete: function(jqXHR, textStatus) {
+        if (undefined !== other.complete) {
+          other.complete(jqXHR, textStatus);
+        }
+
+        switch (textStatus) {
+          case 'success': // 成功时
+
+            if (undefined !== success) {
+              var response;
+
+              var responseText = jqXHR.responseText;
+
+              // 根据数据格式的不同，将相应数据转化为对应格式
+              switch (other.dataType) {
+                case 'json':
+
+                  response = $.parseJSON(responseText);
+
+                  break;
+
+                case 'xml':
+
+                  response = $.parseXML(responseText);
+
+                  break;
+
+                case 'html':
+
+                  response = responseText;
+
+                  break;
+
+                default:
+
+                  response = responseText;
+
+                  break;
+              }
+
+              // 保存到本地的标志为true且取数据的参数不为空,则将数据保存到本地
+              var localOpt = other.localOpt;
+
+              if (localOpt && !($.isEmptyObject(localOpt))) {
+                if (!response.success) {
+                  if (typeof success === 'function') {
+                    success(response, textStatus, jqXHR);
+                  }
+                  return null;
+                }
+                // var contents = response.content;
+                // 将数据存到本地数据库
+              } else if (typeof success === 'function') {
+                success(response, textStatus, jqXHR);
+              }
+            }
+
+            break;
+
+          case 'error': // 错误时
+
+            // 关闭可能开启的加载圈
+            // utils.closeLoading();
+
+            if (undefined !== other.error) {
+              other.error(jqXHR, textStatus);
+            }
+
+            break;
+          case 'timeout': // 请求超时时
+
+            /*
+            if (undefined !== other.onTimeout) {
+              other.onTimeout(jqXHR, textStatus);
+            } else {
+              wellApp.nativeFunc.confirm('请求超时，是否重新发送？', function(state) {
+                if (state === 1) {
+                  that.ajaxFromServer(url, data, success, other);
+                }
+              });
+            }
+            */
+
+            break;
+          default:
+            break;
+        }
+      },
+    };
+
+    // 调用jQuery的ajax方法
+    $.ajax(ajaxOpt);
+  },
+
 };
 
 /**
  * [Constant 项目静态变量]
  * @type {Object}
  */
-var PROJECT_URL = 'http://192.168.200.88:8080/ucapPlatform2.0/';
+// var PROJECT_URL = 'http://192.168.200.88:8080/ucapPlatform2.0/';
+var PROJECT_URL = 'http://192.168.18.198:8123/ucapVersion/';
+
 var Constant = {
   BaseAction: PROJECT_URL + 'BaseAction.action',
   MobileRegister: PROJECT_URL + 'mobileRegister.action',

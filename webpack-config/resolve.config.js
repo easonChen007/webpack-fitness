@@ -13,6 +13,9 @@ module.exports = {
     metisMenu: path.resolve(dirVars.vendorDir, 'metisMenu/'),
     bootstrapNotify: path.resolve(dirVars.vendorDir, 'bootstrap-notify-3.1.3/'),
     jqueryMd5: path.resolve(dirVars.vendorDir, 'jquery.md5'),
+    svgLoader: path.resolve(dirVars.vendorDir, 'svgLoader/'),
+    svgLoader_classie: path.resolve(dirVars.vendorDir, 'svgLoader/classie'),
+    snapsvg: path.resolve(dirVars.vendorDir, 'snap.svg'),
 
     /* libs */
     withoutJqueryModule: path.resolve(dirVars.libsDir, 'without-jquery.module'),
