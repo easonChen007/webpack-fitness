@@ -202,8 +202,8 @@ var BasicFunc = {
  * [Constant 项目静态变量]
  * @type {Object}
  */
-// var PROJECT_URL = 'http://192.168.200.88:8080/ucapPlatform2.0/';
-var PROJECT_URL = 'http://192.168.18.198:8123/ucapVersion/';
+var PROJECT_URL = '/webpack-fitness/';
+// var PROJECT_URL = 'http://192.168.18.198:8123/ucapVersion/';
 
 var Constant = {
   BaseAction: PROJECT_URL + 'BaseAction.action',
