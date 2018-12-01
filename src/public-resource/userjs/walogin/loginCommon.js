@@ -134,7 +134,8 @@ var pubFunc = {
    * @return {[type]} [description]
    */
   registerSubmit: function() {
-    this.checkData();
+    // 暂时屏蔽
+    // this.checkData();
   },
 
 };

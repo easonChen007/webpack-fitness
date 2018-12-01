@@ -195,6 +195,27 @@ var BasicFunc = {
     // 调用jQuery的ajax方法
     $.ajax(ajaxOpt);
   },
+  /**
+   * 获取url参数如index.htm?id=1 返回1
+   * url将URL中的字符串时进行分解获取参数name的实际值
+   * modify by jc 20100420
+   */
+  getUrlParameter: function(name, url) {
+    var params = null;
+    if (url) {
+      params = url.replace(/[^?&]*(\?|&)/, '').split('&');
+    } else {
+      params = window.location.search.slice(1).split('&');
+    }
+    for (var i = 0; i < params.length; i++) {
+      var temp = params[i].split('=');
+      if (temp[0] === name) {
+        // 支持值里面有=，如&purl=unid=123&，取出的值为unid=123 mdf by jc 20110311
+        return params[i].replace(/^[\w]*=/, '');
+      }
+    }
+    return '';
+  },
 
 };
 
@@ -208,6 +229,7 @@ var PROJECT_URL = '/webpack-fitness/';
 var Constant = {
   BaseAction: PROJECT_URL + 'BaseAction.action',
   MobileRegister: PROJECT_URL + 'mobileRegister.action',
+  SignLog: PROJECT_URL + 'SignLog.action',
 };
 
 var exportsMethods = {

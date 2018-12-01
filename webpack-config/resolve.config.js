@@ -42,6 +42,7 @@ module.exports = {
 
     /* 登录页面相关逻辑 */
     login_loginCommon: path.resolve(dirVars.userJsDir, 'walogin/loginCommon'),
+    signManage: path.resolve(dirVars.userJsDir, 'waSignManage/signManage'),
   },
 
   // 当require的模块找不到时，尝试添加这些后缀后进行寻找
