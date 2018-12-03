@@ -1,5 +1,9 @@
+/* eslint-disable */
 var basicFn = require('basicFn').BasicFunc;
 var Constant = require('basicFn').Constant;
+import Snap from 'snapsvg';
+window.classie=require('svgLoader_classie');
+require('svgLoader/svgLoader');
 
 var signManage = {
   // 业务逻辑初始化
@@ -68,12 +72,24 @@ var signManage = {
         if (jsonObject.wrongResult != null) {
           basicFn.buildNotify('签到异常', 'danger');
         } else {
-          debugger;
-          basicFn.buildNotify('签到成功', 'success');
+
+          var loader = new SVGLoader(document.getElementById('loader'), {
+            speedIn: 500,
+            easingIn: mina.easeinout,
+          });
+          loader.show();
+          // after some time hide loader
+          setTimeout(function() {
+            loader.hide();
+            jQuery("#sign_success").css("display", "block");
+            jQuery("#sign_main").css("display", "none");
+
+          }, 2000);
+
+          // basicFn.buildNotify('签到成功', 'success');
         }
       }
     };
-
     // 与Action的交互
     basicFn.ajaxFromServer(url,
       JSON.stringify(v_params).replace(/'/g, '‘'),

@@ -8,6 +8,7 @@ module.exports = {
   },
   images: {
     'login-bg': require('!!file-loader?name=static/images/[name].[ext]!../imgs/login-bg.jpg'),
+    'signSuccess': require('!!file-loader?name=static/images/[name].[ext]!../imgs/signSuccess.png'),
   },
   // dll: {
   //   js: require('!!file-loader?name=dll/dll.js!../../dll/dll.js'),
