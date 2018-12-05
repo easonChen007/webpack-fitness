@@ -13,6 +13,10 @@ var signManage = {
     $('#btn-submit').unbind('.dynBind').bind('click.dynBind', function(event) {
       that.signSubmit();
     });
+
+    $('#btn-return').bind('click', function(event) {
+      window.open(" ", '_self'); //注意空格别忘打
+    });
   },
 
   /**
@@ -65,27 +69,26 @@ var signManage = {
 
     var other = {};
     other.contentType = 'application/json;charset=utf-8';
+    var loader = new SVGLoader(document.getElementById('loader'), {
+      speedIn: 500,
+      easingIn: mina.easeinout,
+    });
+    loader.show();
 
     var callback = function(result) {
       if (result) {
         var jsonObject = result;
         if (jsonObject.wrongResult != null) {
+          loader.hide();
           basicFn.buildNotify('签到异常', 'danger');
         } else {
-
-          var loader = new SVGLoader(document.getElementById('loader'), {
-            speedIn: 500,
-            easingIn: mina.easeinout,
-          });
-          loader.show();
-          // after some time hide loader
           setTimeout(function() {
             loader.hide();
-            jQuery("#sign_success").css("display", "block");
-            jQuery("#sign_main").css("display", "none");
-
-          }, 2000);
-
+	        jQuery("#sign_success").css("display", "block");
+	        jQuery("#sign_main").css("display", "none");                
+          }, 1000);
+    	
+          // after some time hide loader
           // basicFn.buildNotify('签到成功', 'success');
         }
       }
